@@ -1,0 +1,16 @@
+{
+  "name": "acwing",
+  "version": "0.1.0",
+  "description": "",
+  "main": "a.user.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cyanogenaq",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jquery": "^3.5.14",
+    "@types/lodash": "^4.14.181",
+    "rimraf": "^3.0.2"
+  }
+}
