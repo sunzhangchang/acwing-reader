@@ -30,8 +30,8 @@ jobs:
       - name: Lint
         run: pnpm lint
 
-  on:
-    push:
+  # on:
+    # push:
   build:
     runs-on: ubuntu-latest
     needs: [check]
