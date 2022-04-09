@@ -106,6 +106,7 @@ export function build(cb) {
         loader: {
             '.css': 'text'
         },
+        target: 'es6',
         bundle: true,
         charset: 'utf8',
         minify
