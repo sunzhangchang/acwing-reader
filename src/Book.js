@@ -33,13 +33,13 @@ export class Book {
      * @param { number } pageSize
      * @param { Source } source
      */
-    constructor(name, text, pageSize, source) {
+    constructor(name, text, pageSize, curPage, source) {
         this.name = name
         this.text = text
         this.pageSize = pageSize
         this.source = source
         this.isBoss = true
-        this.curPage = 0
+        this.curPage = curPage
         this.totPage = Math.ceil(_.size(text) / this.pageSize)
     }
 
