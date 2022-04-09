@@ -41,21 +41,21 @@ export function build(cb) {
         return readdirSync(dir, {
             encoding: 'utf8', withFileTypes: true
         }).forEach(path => {
-                let d = join(dir, path.name)
-                if (path.isDirectory()) {
-                    mkdirSync(join(tmpd, d))
-                    return chk(d)
-                }
-                let ext = parse(path.name).ext
-                if (_.isEqual(ext, '.css')) {
-                    tmpCss[d.replace('/\.[^\.]*$/', '')] = d
-                } else {
-                    cpSync(d, join(tmpd, d))
-                }
-                if (_.includes(['.css', 'html'], ext)) {
-                    trks.push(join(tmpd, d))
-                }
-            })
+            let d = join(dir, path.name)
+            if (path.isDirectory()) {
+                mkdirSync(join(tmpd, d))
+                return chk(d)
+            }
+            let ext = parse(path.name).ext
+            if (_.isEqual(ext, '.css')) {
+                tmpCss[d.replace('/\.[^\.]*$/', '')] = d
+            } else {
+                cpSync(d, join(tmpd, d))
+            }
+            if (_.includes(['.css', 'html'], ext)) {
+                trks.push(join(tmpd, d))
+            }
+        })
     }
     if (existsSync(tmpd)) {
         rmSync(tmpd, {
@@ -92,7 +92,7 @@ export function build(cb) {
 
     let t = join(tmpd, './src/main.js')
     let out = join(argv.d ?? 'build', argv.o ?? 'acwing-reader.user.js')
-    
+
     log('outdir ', out)
     log(`Building `, t)
 
@@ -101,7 +101,7 @@ export function build(cb) {
         outfile: out,
         banner: {
             js: readFileSync('./src/res/tm-headers.js', 'utf8')
-                    .replace('CUR_VER', process.env.npm_package_version) + '\n;',
+                .replace('CUR_VER', process.env.npm_package_version) + '\n;',
         },
         loader: {
             '.css': 'text'

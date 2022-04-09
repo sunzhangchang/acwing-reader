@@ -49,11 +49,11 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
-      - name: Build & tag
+      - name: Build
         env:
           MSG: ${{ toJSON(github.event.commits.*.message) }}
         run: |
-          pnpm run build -d dist -o acwing-reader.user.js
+          pnpm run build
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
