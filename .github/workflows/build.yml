@@ -58,6 +58,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.ref_name }}
-          body_path: src/resources/update-log.txt
+          body_path: src/res/update-log.txt
           prerelease: ${{ contains( github.ref_name, '-' ) }}
           files: dist/acwing-reader.user.js
