@@ -13,15 +13,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 6.32.4
       - name: Use Node.js 16.x
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
           cache: 'pnpm'
       - name: Install dependencies
         run: |
-          npm i -g pnpm
           pnpm i --frozen-lockfile
 
       - name: Lint
@@ -33,9 +35,9 @@ jobs:
     if: github.event_name == 'push' && startsWith( github.event.head_commit.message, 'VER' )
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js 16.x
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
           cache: 'pnpm'
