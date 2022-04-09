@@ -25,12 +25,6 @@
         ],
         "no-multi-spaces": "warn",
         "no-trailing-spaces": "warn",
-        "key-spacing": [
-            "warn",
-            {
-                "align": "value"
-            }
-        ],
         "no-unused-vars": [
             "warn",
             {

@@ -2,6 +2,8 @@
  * @typedef { '本地' } Source
  */
 
+import { logger } from "../utils"
+
 export class Book {
     /** @type { string } */
     name = ''
@@ -41,6 +43,7 @@ export class Book {
         this.isBoss = true
         this.curPage = curPage
         this.totPage = Math.ceil(_.size(text) / this.pageSize)
+        logger.log(this)
     }
 
     /**
