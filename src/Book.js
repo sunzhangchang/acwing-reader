@@ -27,6 +27,23 @@ export class Book {
     isBoss = true
 
     /**
+     * 
+     * @param { string } name 
+     * @param { string } text 
+     * @param { number } pageSize 
+     * @param { Source } source 
+     */
+    constructor(name, text, pageSize, source) {
+        this.name = name
+        this.text = text
+        this.pageSize = pageSize
+        this.source = source
+        this.isBoss = true
+        this.curPage = 0
+        this.totPage = Math.ceil(_.size(text) / this.pageSize)
+    }
+
+    /**
      * @param { number | undefined } jumpPage
      * @returns { number}
     */

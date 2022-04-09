@@ -11,7 +11,6 @@
 //
 // @require      https://lib.baomitu.com/lodash.js/4.17.21/lodash.min.js
 // @require      https://cdn.jsdelivr.net/npm/jschardet@3.0.0/dist/jschardet.min.js
-// @require      https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js
 //
 // @grant        GM_setValue
 // @grant        GM_getValue

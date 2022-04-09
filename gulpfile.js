@@ -24,7 +24,7 @@ export function build(cb) {
     })(['./src/res/update.log', ''])
 
     writeFileSync(
-        './src/all.js',
+        './src/allMods.js',
         readdirSync('./src/mods')
             .map(s => `import './mods/${s}'`)
             .join('\n')

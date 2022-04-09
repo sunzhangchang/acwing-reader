@@ -19,6 +19,7 @@
     "url": "https://github.com/sunzhangchang/acwing-reader/issues"
   },
   "devDependencies": {
+    "@fluentui/web-components": "^2.3.1",
     "@types/jquery": "^3.5.14",
     "@types/lodash": "^4.14.181",
     "@types/node": "^17.0.23",
@@ -32,7 +33,6 @@
   },
   "dependencies": {
     "alertifyjs": "^1.13.1",
-    "buffer": "^6.0.3",
     "iconv-lite": "^0.6.3",
     "jschardet": "^3.0.0",
     "lodash": "^4.17.21"

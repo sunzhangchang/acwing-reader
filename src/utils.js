@@ -1,12 +1,12 @@
 export const logger = {
     log(f, ...s) {
-        console.log(`%c[ac-reader] ${f}`, 'color: #0E90D2;', ...s)
+        console.log(`%c[ac-reader]`, 'color: #0E90D2;', f, ...s)
     },
     warn(f, ...s) {
-        console.warn(`%c[ac-reader] ${f}`, 'color: #EE6363;', ...s)
+        console.warn(`%c[ac-reader]`, 'color: #EE6363;', f, ...s)
     },
     error(f, ...s) {
-        console.error(`%c[ac-reader] ${f}`, 'color: #FF0000;', ...s)
+        console.error(`%c[ac-reader]`, 'color: #FF0000;', f, ...s)
         throw Error(s.join(' '))
     }
 }
@@ -119,4 +119,21 @@ export function setKey() {
             }
         }
     })
+}
+
+/**
+ * add a remote module from CDN via <script type="module"></script>
+ * @param { string } path 
+ * @param { string } imports 
+ * @param { string } things 
+ */
+export function addCDNMod(path, imports, things) {
+    try {
+        new URL(path)
+        $(document.body).append(`<script type="module" src=${path}></script>`)
+        $(document.body).append(`<script type="module">import ${imports} from "${path}";${things ?? ''}</script>`)
+        logger.log('Added CDN module', path)
+    } catch (msg) {
+        logger.error('URL error', msg)
+    }
 }
