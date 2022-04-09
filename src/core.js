@@ -24,7 +24,7 @@ const core = {
         }
         if (!('on' in this.data[name].data)) {
             this.data[name].data.on = {
-                type:     'boolean',
+                type: 'boolean',
                 default_: true,
             }
         }
