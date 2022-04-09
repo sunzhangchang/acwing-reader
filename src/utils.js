@@ -35,7 +35,7 @@ const u2l = {
 
 /**
  * upperKey to lowerKey
- * @param { string } char 
+ * @param { string } char
  * @returns { string }
  */
 function upper2lower(char) {
@@ -50,8 +50,8 @@ function upper2lower(char) {
 let keys = []
 
 /**
- * @param { string } key 
- * @param { () => {} } handle 
+ * @param { string } key
+ * @param { () => {} } handle
  * @returns { boolean }
  */
 export function regKey(key, handle) {
@@ -71,31 +71,31 @@ export function regKey(key, handle) {
 }
 
 /**
- * @param { string } c 
+ * @param { string } c
  * @returns { boolean }
  */
 function isCtl(c, e) {
     let is = true
     switch (c) {
-        case 'ctrl': case 'control': {
-            is = e.ctrlKey
-            break
-        }
+    case 'ctrl': case 'control': {
+        is = e.ctrlKey
+        break
+    }
 
-        case 'alt': {
-            is = e.altKey
-            break
-        }
+    case 'alt': {
+        is = e.altKey
+        break
+    }
 
-        case 'shift': {
-            is = e.shiftKey
-            break
-        }
-            
-        default: {
-            is = true
-            break
-        }
+    case 'shift': {
+        is = e.shiftKey
+        break
+    }
+
+    default: {
+        is = true
+        break
+    }
     }
     return is
 }
@@ -123,9 +123,9 @@ export function setKey() {
 
 /**
  * add a remote module from CDN via <script type="module"></script>
- * @param { string } path 
- * @param { string } imports 
- * @param { string } things 
+ * @param { string } path
+ * @param { string } imports
+ * @param { string } things
  */
 export function addCDNMod(path, imports, things) {
     try {

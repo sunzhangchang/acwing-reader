@@ -1,0 +1,44 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "jquery": true
+    },
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-tabs": "warn",
+        "no-debugger": "warn",
+        "indent": [
+            "warn",
+            4
+        ],
+        "no-multiple-empty-lines": [
+            "warn",
+            {
+                "max": 2,
+                "maxEOF": 1,
+                "maxBOF": 0
+            }
+        ],
+        "no-multi-spaces": "warn",
+        "no-trailing-spaces": "warn",
+        "key-spacing": [
+            "warn",
+            {
+                "align": "value"
+            }
+        ],
+        "no-unused-vars": [
+            "warn",
+            {
+                "vars": "all",
+                "args": "after-used",
+                "ignoreRestSiblings": false,
+                "varsIgnorePattern": "^_"
+            }
+        ]
+    }
+}

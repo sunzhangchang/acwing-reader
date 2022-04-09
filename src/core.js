@@ -3,13 +3,13 @@ const core = {
     data: {},
 
     /**
-     * 
-     * @param { string } name 
-     * @param { * } info 
-     * @param { Array<string> } path 
-     * @param { * } dat 
-     * @param { * } func 
-     * @param { * } style 
+     *
+     * @param { string } name
+     * @param { * } info
+     * @param { Array<string> } path
+     * @param { * } dat
+     * @param { * } func
+     * @param { * } style
      */
     reg(name, info, path, dat, func, style) {
         _(path).forEach((p, i) => {
@@ -24,7 +24,7 @@ const core = {
         }
         if (!('on' in this.data[name].data)) {
             this.data[name].data.on = {
-                type: 'boolean',
+                type:     'boolean',
                 default_: true,
             }
         }

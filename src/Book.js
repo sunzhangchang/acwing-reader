@@ -27,11 +27,11 @@ export class Book {
     isBoss = true
 
     /**
-     * 
-     * @param { string } name 
-     * @param { string } text 
-     * @param { number } pageSize 
-     * @param { Source } source 
+     *
+     * @param { string } name
+     * @param { string } text
+     * @param { number } pageSize
+     * @param { Source } source
      */
     constructor(name, text, pageSize, source) {
         this.name = name
@@ -79,7 +79,7 @@ export class Book {
     }
 
     /**
-     * @param { number | undefined } page 
+     * @param { number | undefined } page
      * @returns { string }
      */
     getPageText(page) {

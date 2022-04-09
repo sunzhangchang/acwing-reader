@@ -12,11 +12,11 @@ $(() => {
     let novelBar = $(`<a type="button" class="btn btn-default pull-right fs-gui-taskbar-task-list-item ui-draggable">${'' ?? '点击打开小说'}</a>`)
     novelBar.css({
         'background-color': '#8a8a8a',
-        'border': 'none',
-        'box-shadow': 'none',
-        'width': 'auto',
-        'min-width': '200px',
-        "position": "relative",
+        'border':           'none',
+        'box-shadow':       'none',
+        'width':            'auto',
+        'min-width':        '200px',
+        "position":         "relative",
     })
     let uploadBtn = $(`<input id="novel" type="file" accept="text/plain" />`)
 
@@ -69,7 +69,7 @@ $(() => {
     }
 
     /**
-     * @param { number | undefined } page 
+     * @param { number | undefined } page
      * @returns { void }
      */
     function showNovel(page) {
@@ -121,7 +121,7 @@ $(() => {
     dialogCancel.css({
         'float': 'right'
     })
-    dialogCancel.on('click', (e) => {
+    dialogCancel.on('click', () => {
         dialog.hide()
     })
     showNovelList.append(dialogCancel)
@@ -137,7 +137,7 @@ $(() => {
     dialog.hide()
     $(document.body).append(dialog)
 
-    dialogAccept.on('click', (e) => {
+    dialogAccept.on('click', () => {
         dialog.hide()
 
         let cs = combobox[0].currentValue
