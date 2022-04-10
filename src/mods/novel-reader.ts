@@ -56,37 +56,22 @@ uploadBtn.attr('title', '点击打开小说')
 
 taskBtn.append(novelBar)
 
-/**
- * @param { string } text
- * @returns { void }
- */
-function setText(text) {
+function setText(text: string): void {
     $('#novelBar').html(text)
 }
 
-/**
- * @param { number | undefined } page
- * @returns { void }
- */
-function showNovel(page) {
+function showNovel(page?: number): void {
     book.isBoss = false;
     $('#novelBar').show()
     setText(book.getPageText(page))
 }
 
-/**
- * @param { number | undefined } page
- * @returns { void }
- */
-function showAndSetNovel(page) {
+function showAndSetNovel(page?: number): void {
     showNovel(page)
     book.setPage(page)
 }
 
-/**
- * @returns { void }
- */
-function bossKey() {
+function bossKey(): void {
     if (!book.isBoss) {
         $('#novelBar').hide()
         book.isBoss = true
@@ -137,8 +122,7 @@ dialogAccept.on('click', () => {
 
     let cs = ($('#combo_')[0] as Combobox).currentValue
     logger.log(cs)
-    /** @type { Book } */
-    let t = GM_getValue(cs)
+    let t: Book = GM_getValue(cs)
     logger.log(t)
 
     book = new Book(t.name, t.text, t.pageSize, t.curPage, t.source)
@@ -148,7 +132,6 @@ dialogAccept.on('click', () => {
 regKey('alt + ;', () => {
     let newCombobox = $(`<fluent-combobox id="combo_" placeholder="选择一本小说"></fluent-combobox>`)
 
-    /** @type { { fluentOption }[] } */
     let bookList = GM_listValues()
     console.log(bookList)
 
