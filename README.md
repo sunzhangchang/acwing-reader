@@ -1,5 +1,8 @@
 # AcWingOS 任务栏小说阅读器
 
+tampermonkey
+typescript
+
 ### 使用方法
 
 | 快捷键  |            用途            |
