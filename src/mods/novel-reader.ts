@@ -28,9 +28,11 @@ function uploadBook(): void {
         logger.log('正在检查编码...')
         //@ts-ignore
         let novelbuf = Buffer.from(reader.result)
+        //@ts-ignore
         let { encoding, confidence } = jschardet.detect(novelbuf)
         setText(`正在转换编码... ${encoding} 编码正确率: ${confidence}`)
         logger.log(`正在转换编码... ${encoding} 编码正确率: ${confidence}`)
+        //@ts-ignore
         let novel = decode(novelbuf, encoding)
         // let novel = novelbuf.toString(encoding.encoding)
         novel = _(novel)

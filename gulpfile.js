@@ -54,7 +54,11 @@ export function build(cb) {
             } else {
                 let dest = join(tmpd, d)
                 cpSync(d, dest)
-                writeFileSync(dest, readFileSync(d, 'utf8').replace(/import _ from ["']lodash["']/g, ''))
+                writeFileSync(dest,
+                    readFileSync(d, 'utf8')
+                        .replace(/import.+from ["']lodash["']/g, '')
+                        .replace(/import.+from ["']@fluentui\/web-components["']/g, '')
+                )
             }
             if (_.includes(['.css', 'html'], ext)) {
                 trks.push(join(tmpd, d))
