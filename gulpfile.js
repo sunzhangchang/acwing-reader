@@ -15,17 +15,18 @@ export function build(cb) {
 
     const tmpd = '_tmp', argv = parser(process.argv.slice(3)), minify = argv.m ?? (!argv.b)
 
-    log('minify?', minify)
+    log('minify?', minify);
 
-    ; (([path, val]) => {
+    (([path, val]) => {
         if (!existsSync(path)) {
             writeFileSync(path, val)
         }
     })(['./src/res/update.log', ''])
 
     writeFileSync(
-        './src/allMods.js',
+        './src/allMods.ts',
         readdirSync('./src/mods')
+            .filter(s => !s.endsWith('.d.ts'))
             .map(s => `import './mods/${s}'`)
             .join('\n')
     )
@@ -46,11 +47,14 @@ export function build(cb) {
                 mkdirSync(join(tmpd, d))
                 return chk(d)
             }
+            log('chk', d)
             let ext = parse(path.name).ext
             if (_.isEqual(ext, '.css')) {
                 tmpCss[d.replace('/\.[^\.]*$/', '')] = d
             } else {
-                cpSync(d, join(tmpd, d))
+                let dest = join(tmpd, d)
+                cpSync(d, dest)
+                writeFileSync(dest, readFileSync(d, 'utf8').replace(/import _ from ["']lodash["']/g, ''))
             }
             if (_.includes(['.css', 'html'], ext)) {
                 trks.push(join(tmpd, d))
@@ -90,17 +94,17 @@ export function build(cb) {
         )
     )
 
-    let t = join(tmpd, './src/main.js')
+    let t = join(tmpd, './src/main.ts')
     let out = join(argv.d ?? 'build', argv.o ?? 'acwing-reader.user.js')
 
-    log('outdir ', out)
+    log('out file ', out)
     log(`Building `, t)
 
     buildSync({
         entryPoints: [t],
         outfile: out,
         banner: {
-            js: readFileSync('./src/res/tm-headers.js', 'utf8')
+            js: readFileSync('./src/res/tm-headers.ts', 'utf8')
                 .replace('CUR_VER', process.env.npm_package_version) + '\n;',
         },
         loader: {

@@ -1,5 +1,8 @@
-import { logger, regKey } from "../utils"
+import { logger } from "../utils"
 import { Book } from "../com/Book"
+import { regKey } from "./setKey"
+import { Combobox } from "@fluentui/web-components"
+import _ from "lodash"
 
 let taskBtn = $("#acwing_body > div.panel.panel-default.fs-gui-taskbar > div > div.fs-gui-taskbar-right > div.fs-gui-taskbar-task-list.ui-sortable")
 let novelBar = $(`<a id="novelBar" type="button" class="btn btn-default pull-right fs-gui-taskbar-task-list-item ui-draggable">${'' ?? '点击打开小说'}</a>`)
@@ -14,13 +17,9 @@ novelBar.css({
 
 let uploadBtn = $(`<input id="uploadNovel" type="file" accept="text/plain" />`)
 
-/** @type { Book } */
 let book = new Book()
 
-/**
- * @returns { void }
- */
-function uploadBook() {
+function uploadBook(): void {
     let file = uploadBtn.first().prop('files')[0]
     let reader = new FileReader()
     reader.readAsArrayBuffer(file)
@@ -29,7 +28,7 @@ function uploadBook() {
         logger.log('正在检查编码...')
         //@ts-ignore
         let novelbuf = Buffer.from(reader.result)
-        let {encoding, confidence} = jschardet.detect(novelbuf)
+        let { encoding, confidence } = jschardet.detect(novelbuf)
         setText(`正在转换编码... ${encoding} 编码正确率: ${confidence}`)
         logger.log(`正在转换编码... ${encoding} 编码正确率: ${confidence}`)
         let novel = decode(novelbuf, encoding)
@@ -134,7 +133,7 @@ $(document.body).append(dialog)
 dialogAccept.on('click', () => {
     dialog.hide()
 
-    let cs = $('#combo_')[0].currentValue
+    let cs = ($('#combo_')[0] as Combobox).currentValue
     logger.log(cs)
     /** @type { Book } */
     let t = GM_getValue(cs)
