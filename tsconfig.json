@@ -7,14 +7,22 @@
         "allowSyntheticDefaultImports": true,
         "alwaysStrict": true,
         "declaration": true,
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "baseUrl": "./src",
+        "typeRoots": [
+            "node_modules/@types",
+            "src/typings"
+        ],
     },
     "exclude": [
-        "node_modules",
+        "**/node_modules/**",
         "bower_components",
         "jspm_packages",
         "tmp",
         "temp",
         "_tmp"
-    ]
+    ],
+    "include": [
+        "src/**/*"
+    ],
 }

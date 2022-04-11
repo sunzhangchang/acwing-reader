@@ -1,11 +1,11 @@
 export const logger = {
-    info(msg: any, ...optParams: any[]): void {
+    info(msg: unknown, ...optParams: unknown[]): void {
         console.log(`%c[ac-reader]`, 'color: #0E90D2;', msg, ...optParams)
     },
-    warn(msg: any, ...optParams: any[]): void {
+    warn(msg: unknown, ...optParams: unknown[]): void {
         console.warn(`%c[ac-reader]`, 'color: #EE6363;', msg, ...optParams)
     },
-    error(msg: any, ...optParams: any[]): void {
+    error(msg: unknown, ...optParams: unknown[]): void {
         console.error(`%c[ac-reader]`, 'color: #FF0000;', msg, ...optParams)
         throw Error(optParams.join(' '))
     }

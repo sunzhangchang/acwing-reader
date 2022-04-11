@@ -1,12 +1,12 @@
 /*
 unsafeWindow 对象提供对页面 javascript 函数和变量的完全访问。
 * */
-declare var unsafeWindow: Window;
+declare let unsafeWindow: Window;
 
 /*
 获取有关脚本和 TM 的一些信息。
 * */
-declare var GM_info: {
+declare let GM_info: {
   version: string,
   scriptWillUpdate: boolean,
   scriptHandler: "Tampermonkey",
@@ -89,7 +89,7 @@ declare function GM_listValues(): string[];
 declare function GM_addValueChangeListener(name: string, listener: GM_Types.ValueChangeListener): number;
 
 /*
-按 ID 删除更改​​侦听器。
+按 ID 删除更改侦听器。
 * */
 declare function GM_removeValueChangeListener(listenerId: number): void;
 
@@ -101,7 +101,7 @@ declare function GM_setValue(name: string, value: any): void;
 /*
 从存储中获取 'name' 的值。
 * */
-declare function GM_getValue(name: string, defaultValue ?: any): any;
+declare function GM_getValue(name: string, defaultValue?: any): any;
 
 /*
 将消息打印到控制台。
@@ -121,7 +121,7 @@ declare function GM_getResourceURL(name: string): string;
 /*
 在运行此脚本的页面的 Tampermonkey 菜单中注册要显示的菜单，并返回菜单命令 ID。
 * */
-declare function GM_registerMenuCommand(name: string, listener: Function, accessKey ?: string): number;
+declare function GM_registerMenuCommand(name: string, listener: Function, accessKey?: string): number;
 
 /*
 使用给定的菜单命令 ID 取消注册先前由 GM_registerMenuCommand 注册的菜单命令。
@@ -182,7 +182,7 @@ declare function GM_notification(text: string, title: string, image: string, onc
 /*
 将数据复制到剪贴板。参数 'info' 可以是像“{ type: 'text', mimetype: 'text/plain'}”这样的对象，或者只是一个表示类型的字符串（“text”或“html”）。
 * */
-declare function GM_setClipboard(data: string, info ?: string | { type?: string, mimetype?: string }): void;
+declare function GM_setClipboard(data: string, info?: string | { type?: string, mimetype?: string }): void;
 
 declare namespace GM_Types {
 

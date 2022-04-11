@@ -1,13 +1,11 @@
-import { logger } from "../utils"
-
 export class Book {
-    name: string = ''
-    text: string = ''
-    totPage: number = 0
-    curPage: number = 0
-    pageSize: number = 15
+    name = ''
+    text = ''
+    totPage = 0
+    curPage = 0
+    pageSize = 15
     source: Source = '本地'
-    isBoss: boolean = true
+    isBoss = true
 
     constructor(name?: string, text?: string, pageSize?: number, curPage?: number, source?: Source) {
         this.name = name ?? ''
@@ -38,13 +36,13 @@ export class Book {
     }
 
     getStartEnd(page?: number): [number, number] {
-        let p = page ?? this.curPage
-        let ed = p * this.pageSize
+        const p = page ?? this.curPage
+        const ed = p * this.pageSize
         return [ed - this.pageSize, ed]
     }
 
     getPageText(page?: number): string {
-        let toPage = this.getPage(page)
+        const toPage = this.getPage(page)
         this.setPage(toPage)
 
         if (page <= 0) {
@@ -55,7 +53,7 @@ export class Book {
             return '您阅读到最后一页了!'
         }
 
-        let [st, ed] = this.getStartEnd()
+        const [st, ed] = this.getStartEnd()
         return `${this.text.substring(st, ed)}   ${toPage}/${this.totPage}`
     }
 }

@@ -6,7 +6,8 @@
   "main": "./src/main.js",
   "scripts": {
     "build": "gulp build -d dist",
-    "lint": "eslint src",
+    "lint": "eslint src/**/*.ts",
+    "lint-fix": "eslint src/**/*.ts --fix",
     "test": "gulp build -d dist -b"
   },
   "repository": {
@@ -24,6 +25,8 @@
     "@types/jquery": "^3.5.14",
     "@types/lodash": "^4.14.181",
     "@types/node": "^17.0.23",
+    "@typescript-eslint/eslint-plugin": "^5.18.0",
+    "@typescript-eslint/parser": "^5.18.0",
     "esbuild": "^0.14.34",
     "eslint": "^8.13.0",
     "fancy-log": "^2.0.0",

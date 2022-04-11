@@ -48,7 +48,7 @@ class Core {
 
             try {
                 return mod.run({})
-            } catch (err: any) {
+            } catch (err) {
                 logger.warn(err)
             }
         }
