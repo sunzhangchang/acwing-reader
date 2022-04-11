@@ -2,7 +2,11 @@ import _ from "lodash"
 import { logger } from './utils';
 
 class CategoryProvider {
+    category: []
 
+    constructor(category) {
+        ;
+    }
 }
 
 class ModuleProvider {
@@ -28,13 +32,13 @@ class ModuleProvider {
         }
 
         this.mods.set(name, {
-            info: mod.info.replaceAll(' ', '_'),
+            info: mod.info.replaceAll(/ /g, '_'),
             ...mod
         })
     }
 
-    get(name: string): Mod | null {
-        return this.mods.get(name) ?? null
+    get(name: string): Mod | undefined {
+        return this.mods.get(name) ?? undefined // ? Why
     }
 }
 
@@ -48,17 +52,21 @@ class Core {
     }
 
     runMod(nameOrMod: string | Mod) {
-        let mod: Mod | undefined
+        let mod: Mod
+        let name = 'anonymous'
         if (_.isString(nameOrMod)) {
-            let name = nameOrMod
-            mod = this.modProvider.get(name) ?? undefined // ? Why
+            name = nameOrMod
+            const tmod = this.modProvider.get(name)
+            if (_.isUndefined(tmod)) {
+                logger.error(`Running mod failed: ${name}`)
+            } else {
+                mod = tmod
+            }
         } else {
+            name = 'anonymous'
             mod = nameOrMod
         }
 
-        if (_.isUndefined(mod)) {
-            logger.error(`Running mod failed: ${mod.name}`)
-        }
         if (_.isEmpty(mod.style)) {
             GM_addStyle(mod.style)
         }
@@ -66,13 +74,14 @@ class Core {
         logger.info(`Running mod: ${name}`)
 
         try {
-            return mod.run({ msto: sto[category] })
+            return mod.run(sto[this.categoryProvider.get()])
         } catch (err) {
             logger.warn(err)
         }
     }
 
     runMods() {
+        return
     }
 }
 

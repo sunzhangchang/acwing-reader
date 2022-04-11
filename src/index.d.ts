@@ -4,7 +4,7 @@ type Source = |
 type Mod = {
     info: string,
     path: string[],
-    data: unknown,
+    data: Object,
     style: string,
-    run: unknown,
+    run: (sto: any) => boolean | void,
 }
