@@ -1,7 +1,11 @@
 import _ from "lodash"
 import { logger } from './utils';
 
-class Core {
+class CategoryProvider {
+
+}
+
+class ModuleProvider {
     mods = new Map<string, Mod>()
     data = {}
 
@@ -29,29 +33,46 @@ class Core {
         })
     }
 
-    run(name?: string, mod?: Mod) {
-        if (!_.isUndefined(name)) {
-            let rMod: Mod | undefined
-            if (_.isUndefined(mod)) {
-                rMod = this.mods.get(name) ?? undefined // ? Why
-            } else {
-                rMod = mod
-            }
-            if (_.isUndefined(rMod)) {
-                logger.error(`Running mod failed: ${name}`)
-            }
-            if (_.isEmpty(mod.style)) {
-                GM_addStyle(mod.style)
-            }
+    get(name: string): Mod | null {
+        return this.mods.get(name) ?? null
+    }
+}
 
-            logger.info(`Running mod: ${name}`)
+class Core {
+    modProvider: ModuleProvider
+    categoryProvider: CategoryProvider
 
-            try {
-                return mod.run({})
-            } catch (err) {
-                logger.warn(err)
-            }
+    constructor(mod?: ModuleProvider, category?: CategoryProvider) {
+        this.modProvider = mod ?? new ModuleProvider()
+        this.categoryProvider = category ?? new CategoryProvider()
+    }
+
+    runMod(nameOrMod: string | Mod) {
+        let mod: Mod | undefined
+        if (_.isString(nameOrMod)) {
+            let name = nameOrMod
+            mod = this.modProvider.get(name) ?? undefined // ? Why
+        } else {
+            mod = nameOrMod
         }
+
+        if (_.isUndefined(mod)) {
+            logger.error(`Running mod failed: ${mod.name}`)
+        }
+        if (_.isEmpty(mod.style)) {
+            GM_addStyle(mod.style)
+        }
+
+        logger.info(`Running mod: ${name}`)
+
+        try {
+            return mod.run({ msto: sto[category] })
+        } catch (err) {
+            logger.warn(err)
+        }
+    }
+
+    runMods() {
     }
 }
 

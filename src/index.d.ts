@@ -2,9 +2,9 @@ type Source = |
     '本地'
 
 type Mod = {
-    info: any,
+    info: string,
     path: string[],
-    data: any,
+    data: unknown,
     style: string,
-    run: any,
+    run: unknown,
 }

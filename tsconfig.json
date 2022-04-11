@@ -3,7 +3,7 @@
     // for the documentation about the jsconfig.json format
     "compilerOptions": {
         "target": "es6",
-        "module": "es2020",
+        "module": "es2015",
         "allowSyntheticDefaultImports": true,
         "alwaysStrict": true,
         "declaration": true,
@@ -13,6 +13,9 @@
             "node_modules/@types",
             "src/typings"
         ],
+        "lib": [
+            "ESNext"
+        ]
     },
     "exclude": [
         "**/node_modules/**",
