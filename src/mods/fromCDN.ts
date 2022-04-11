@@ -1,6 +1,6 @@
 import { addCDNMod, logger } from "../utils"
 
-logger.log('Setting up CDN mods')
+logger.info('Setting up CDN mods')
 
 addCDNMod(
     'https://esm.run/iconv-lite',

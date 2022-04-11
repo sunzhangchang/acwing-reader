@@ -35,7 +35,7 @@ export function regKey(key: string, handle: () => void): boolean {
     // keys.set(key, handle)
     let keyt = key.split('+')
     if (keyt.length < 2) {
-        logger.log('Please pass "Ctrl/Alt/Shift + charKey" or lower cases')
+        logger.info('Please pass "Ctrl/Alt/Shift + charKey" or lower cases')
         return false
     }
     let ctrl = _(keyt).chain().first().trim().toLower().value()
@@ -43,7 +43,7 @@ export function regKey(key: string, handle: () => void): boolean {
     let mid = (keyt.length > 2) ? keyt[1] : ''
     keys.push({ ctrl, mid, char, handle })
     let k = ctrl + (_.isEmpty(mid) ? '' : (' + ' + mid)) + ' + ' + char
-    logger.log(`Regestered key "${k}", handle "${handle}"`)
+    logger.info(`Regestered key "${k}", handle "${handle}"`)
     return true
 }
 
@@ -74,16 +74,16 @@ function isCtl(c: string, e: JQuery.KeyDownEvent): boolean {
 }
 
 $(document).on('keydown', (e) => {
-    // logger.log(e.altKey, e.ctrlKey, e.shiftKey, e.key)
+    // logger.info(e.altKey, e.ctrlKey, e.shiftKey, e.key)
     for (const { ctrl, mid, char, handle } of keys) {
         let key = ctrl + (_.isEmpty(mid) ? '' : (' + ' + mid)) + ' + ' + char
         let isC = isCtl(ctrl, e)
         let isE = _.isEmpty(mid) ? true : isCtl(mid, e)
-        // logger.log(isC, isE, _.isEqual(e.key, char))
+        // logger.info(isC, isE, _.isEqual(e.key, char))
         if (isC) {
             if (isE) {
                 if (_.isEqual(e.key, char)) {
-                    logger.log(`Press key "${key}", handle "${handle}"`)
+                    logger.info(`Press key "${key}", handle "${handle}"`)
                     handle()
                 }
             }

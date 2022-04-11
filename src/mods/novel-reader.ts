@@ -25,13 +25,13 @@ function uploadBook(): void {
     reader.readAsArrayBuffer(file)
     reader.onload = () => {
         setText('正在检查编码...')
-        logger.log('正在检查编码...')
+        logger.info('正在检查编码...')
         //@ts-ignore
         let novelbuf = Buffer.from(reader.result)
         //@ts-ignore
         let { encoding, confidence } = jschardet.detect(novelbuf)
         setText(`正在转换编码... ${encoding} 编码正确率: ${confidence}`)
-        logger.log(`正在转换编码... ${encoding} 编码正确率: ${confidence}`)
+        logger.info(`正在转换编码... ${encoding} 编码正确率: ${confidence}`)
         //@ts-ignore
         let novel = decode(novelbuf, encoding)
         // let novel = novelbuf.toString(encoding.encoding)
@@ -121,9 +121,9 @@ dialogAccept.on('click', () => {
     dialog.hide()
 
     let cs = ($('#combo_')[0] as Combobox).currentValue
-    logger.log(cs)
+    logger.info(cs)
     let t: Book = GM_getValue(cs)
-    logger.log(t)
+    logger.info(t)
 
     book = new Book(t.name, t.text, t.pageSize, t.curPage, t.source)
     setText('选择成功, 按 Alt + / 开始阅读')
@@ -135,7 +135,7 @@ regKey('alt + ;', () => {
     let bookList = GM_listValues()
     console.log(bookList)
 
-    logger.log(newCombobox.first())
+    logger.info(newCombobox.first())
     _(bookList).forEach((e, i) => {
         newCombobox.append($(`<fluent-option value=${i}>${e}</fluent-option>`))
     })

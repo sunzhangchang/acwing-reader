@@ -1,7 +1,8 @@
+import core from './core'
 import { logger } from './utils'
 
 $(() => {
     'use strict'
-    logger.log('Launching')
-    import('./allMods')
+    logger.info('Launching')
+    core.run()
 })
