@@ -21,7 +21,7 @@ export function build(cb) {
         if (!existsSync(path)) {
             writeFileSync(path, val)
         }
-    })(['./src/res/update.log', ''])
+    })(['./src/res/update-log.txt', ''])
 
     writeFileSync(
         './src/allMods.ts',
@@ -56,8 +56,8 @@ export function build(cb) {
                 cpSync(d, dest)
                 writeFileSync(dest,
                     readFileSync(d, 'utf8')
-                        .replace(/import.+from ["']lodash["']/g, '')
-                        .replace(/import.+from ["']@fluentui\/web-components["']/g, '')
+                        .replace(/import.+from ["']lodash["'];?/g, '')
+                        .replace(/import.+from ["']@fluentui\/web-components["'];?/g, '')
                 )
             }
             if (_.includes(['.css', 'html'], ext)) {

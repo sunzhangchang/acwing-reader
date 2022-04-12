@@ -1,7 +1,7 @@
 import { addCDNMod, logger } from "../utils"
 import { core } from '../core';
 
-const run = (): boolean => {
+const preload = (): boolean => {
     logger.info('Setting up CDN mods')
 
     addCDNMod(
@@ -28,6 +28,6 @@ const run = (): boolean => {
 core.modMan.regMod('fromCDN', {
     info: '从 CDN 加载模块',
     path: ['www.acwing.com/*'],
-    run,
     category: 'module',
+    preload,
 })

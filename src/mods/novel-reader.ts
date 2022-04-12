@@ -119,9 +119,9 @@ const run = (): boolean => {
         dialog.hide()
 
         const cs = ($('#combo_')[0] as Combobox).currentValue
-        logger.info(cs)
+        logger.info(`Choosing book: ${cs}`)
         const t: Book = GM_getValue(cs)
-        logger.info(t)
+        // logger.info(t)
 
         book = new Book(t.name, t.text, t.pageSize, t.curPage, t.source)
         setText('选择成功, 按 Alt + / 开始阅读')
@@ -131,9 +131,10 @@ const run = (): boolean => {
         const newCombobox = $(`<fluent-combobox id="combo_" placeholder="选择一本小说"></fluent-combobox>`)
 
         const bookList = GM_listValues()
-        console.log(bookList)
+        logger.info('Book list:', bookList)
 
-        logger.info(newCombobox.first())
+        // logger.info(newCombobox.first())
+
         _(bookList).forEach((e, i) => {
             newCombobox.append($(`<fluent-option value=${i}>${e}</fluent-option>`))
         })
@@ -162,5 +163,5 @@ core.modMan.regMod('novel-reader', {
     info: '任务栏小说阅读',
     path: ['www.acwing.com/*'],
     run,
-    category: 'module'
+    category: 'module',
 })

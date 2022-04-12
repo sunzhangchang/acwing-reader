@@ -20,47 +20,66 @@ class Core {
         this.modMan = mod ?? new ModuleManager()
     }
 
-    runMod(nameOrMod: string | Mod): boolean {
-        logger.warn(nameOrMod)
-        let mod: Mod
-        let name = ''
-        if (_.isString(nameOrMod)) {
-            name = nameOrMod
+    runMod(name: string, isPreload: boolean, mod?: Mod): boolean {
+        let rmod: Mod
+        if (_.isUndefined(mod)) {
             const tmod = this.modMan.get(name)
             if (_.isUndefined(tmod)) {
-                logger.error(`Running mod failed: ${name}`)
+                logger.error(`Running module failed: ${name}`)
             } else {
-                mod = tmod
+                rmod = tmod
             }
         } else {
-            name = ''
-            mod = nameOrMod
+            rmod = mod
         }
 
-        if (mod?.style) {
-            GM_addStyle(mod.style)
+        if (rmod?.style) {
+            GM_addStyle(rmod.style)
         }
-
-        logger.info(`Running mod: ${_.isEmpty(name) ? 'anonymous' : name}`)
 
         try {
-            return mod.run(getStorage(categoryMan.getAlias(mod.category, name)))
+            if (isPreload) {
+                if (!_.isUndefined(rmod.preload)) {
+                    logger.info(`Preloading mod: ${_.isEmpty(name) ? 'anonymous' : name}`, rmod)
+                    return mod.preload(getStorage(categoryMan.getAlias(rmod.category, name)))
+                } else {
+                    logger.warn(`Preloading module ${name} but therre is nothing to preload!`)
+                    return true
+                }
+            } else {
+                if (!_.isUndefined(rmod.run)) {
+                    logger.info(`Running mod: ${_.isEmpty(name) ? 'anonymous' : name}`, rmod)
+                    return rmod.run(getStorage(categoryMan.getAlias(rmod.category, name)))
+                } else {
+                    return true
+                }
+            }
         } catch (err) {
             logger.warn(err)
+        }
+        return true
+    }
+
+    preload() {
+        for (const [name, mod] of this.modMan.mods.entries()) {
+            // mod.on = getStorage(categoryMan.getAlias(mod.category, name))?.on
+            if (!_.isUndefined(mod.preload)) {
+                const res = this.runMod(name, true, mod)
+                if (!res) {
+                    break
+                }
+            }
         }
     }
 
     runMods() {
         for (const [name, mod] of this.modMan.mods.entries()) {
-            logger.warn(name, mod)
-            mod.on = getStorage(categoryMan.getAlias(mod.category, name))?.on
-            // if (mod?.willrun) {
-            if (!this.runMod(mod)) {
+            // mod.on = getStorage(categoryMan.getAlias(mod.category, name))?.on
+            const res = this.runMod(name, false, mod)
+            if (!res) {
                 break
             }
-            // }
         }
-        return
     }
 }
 

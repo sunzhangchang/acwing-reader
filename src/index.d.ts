@@ -14,7 +14,8 @@ type Mod = {
     data?: Object,
     style?: string,
     category: string,
-    run: (sto: any) => boolean,
     on?: any,
-    willrun?: any,
+    willrun?: boolean,
+    run?: (sto: any) => boolean,
+    preload?: (sto: any) => boolean,
 }
