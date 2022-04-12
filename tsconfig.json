@@ -14,7 +14,8 @@
             "src/typings"
         ],
         "lib": [
-            "ESNext"
+            "ESNext",
+            "DOM"
         ]
     },
     "exclude": [
