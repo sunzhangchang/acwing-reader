@@ -4,10 +4,10 @@ export class CategoryManager {
     categories = new Map<string, Category>()
 
     constructor() {
-        this.register()
+        this.registerAll()
     }
 
-    reg(name: string, category: Category) {
+    regCategory(name: string, category: Category) {
         this.categories.set(name, category)
         const cate = ((categories) => {
             return {
@@ -22,17 +22,19 @@ export class CategoryManager {
         return cate
     }
 
-    alias(name: string) {
-        const c = this.categories.get(name)
-        return c ? c.alia : ''
+    getAlias(category: string, name: string) {
+        const c = this.categories.get(category)
+        return (c ? c.alia : '') + name
     }
 
-    register() {
+    registerAll() {
         logger.info('Registering built-in categories')
-        this.reg('core', { desc: '核心', alia: '~', icon: 'bug_report', unclosable: true })
-        this.reg('module', { desc: '模块', alia: '*', icon: 'tunes', unclosable: false })
-        this.reg('admin', { desc: '管理', alia: '!', icon: 'build', unclosable: false })
-        this.reg('chore', { desc: '定时', alia: '@', icon: 'alarm', unclosable: true })
-        this.reg('component', { desc: '组件', alia: '#', icon: 'widgets', unclosable: true })
+        this.regCategory('core', { desc: '核心', alia: '~', icon: 'bug_report', unclosable: true })
+        this.regCategory('module', { desc: '模块', alia: '*', icon: 'tunes', unclosable: false })
+        this.regCategory('admin', { desc: '管理', alia: '!', icon: 'build', unclosable: false })
+        this.regCategory('chore', { desc: '定时', alia: '@', icon: 'alarm', unclosable: true })
+        this.regCategory('component', { desc: '组件', alia: '#', icon: 'widgets', unclosable: true })
     }
 }
+
+export const categoryMan = new CategoryManager()

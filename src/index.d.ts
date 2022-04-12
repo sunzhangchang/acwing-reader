@@ -11,8 +11,8 @@ type Category = {
 type Mod = {
     info: string,
     path: string[],
-    data: Object,
-    style: string,
+    data?: Object,
+    style?: string,
     category: string,
     run: (sto: any) => boolean,
     on?: any,

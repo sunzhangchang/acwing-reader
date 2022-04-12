@@ -1,9 +1,9 @@
 import _ from "lodash"
-import { logger } from './utils';
-import { CategoryManager } from './category';
-import { ModuleManager } from './module';
+import { logger } from './utils'
+import { ModuleManager } from './module'
+import { categoryMan } from './category';
 
-let storage
+const storage = {}
 
 export function setStorage(name: string, data: unknown) {
     storage[name] = data
@@ -14,21 +14,19 @@ export function getStorage(name: string) {
 }
 
 class Core {
-    modProvider: ModuleManager
-    categoryProvider: CategoryManager
+    modMan: ModuleManager
 
-    constructor(mod?: ModuleManager, category?: CategoryManager) {
-        this.modProvider = mod ?? new ModuleManager()
-        this.categoryProvider = category ?? new CategoryManager()
+    constructor(mod?: ModuleManager) {
+        this.modMan = mod ?? new ModuleManager()
     }
 
-
     runMod(nameOrMod: string | Mod): boolean {
+        logger.warn(nameOrMod)
         let mod: Mod
         let name = ''
         if (_.isString(nameOrMod)) {
             name = nameOrMod
-            const tmod = this.modProvider.get(name)
+            const tmod = this.modMan.get(name)
             if (_.isUndefined(tmod)) {
                 logger.error(`Running mod failed: ${name}`)
             } else {
@@ -39,32 +37,31 @@ class Core {
             mod = nameOrMod
         }
 
-        if (_.isEmpty(mod.style)) {
+        if (mod?.style) {
             GM_addStyle(mod.style)
         }
 
         logger.info(`Running mod: ${_.isEmpty(name) ? 'anonymous' : name}`)
 
         try {
-            return mod.run(getStorage(this.categoryProvider.alias(mod.category) + name))
+            return mod.run(getStorage(categoryMan.getAlias(mod.category, name)))
         } catch (err) {
             logger.warn(err)
         }
     }
 
     runMods() {
-        for (const [name, mod] of this.modProvider.mods.entries()) {
-            mod.on = getStorage(this.categoryProvider.alias(mod.category) + name).on
-            if (mod.willrun) {
-                if (!this.runMod(mod)) {
-                    break
-                }
+        for (const [name, mod] of this.modMan.mods.entries()) {
+            logger.warn(name, mod)
+            mod.on = getStorage(categoryMan.getAlias(mod.category, name))?.on
+            // if (mod?.willrun) {
+            if (!this.runMod(mod)) {
+                break
             }
+            // }
         }
         return
     }
 }
 
-const core = new Core()
-
-export default core
+export const core = new Core()

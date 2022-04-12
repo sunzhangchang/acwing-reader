@@ -1,8 +1,10 @@
+import { categoryMan } from 'category'
 import _ from 'lodash'
 
 export class ModuleManager {
     mods = new Map<string, Mod>()
-    data = {}
+    /* eslint "@typescript-eslint/no-explicit-any": "off" */
+    data: Record<string, any> = {}
 
     regMod(name: string, mod: Mod): void {
         _(mod.path).forEach((p, i) => {
@@ -11,16 +13,21 @@ export class ModuleManager {
             }
         })
 
-        this.data[name] = {
-            type: 'Object',
-            data: mod.data ?? {}
+        const rawName = categoryMan.getAlias(mod.category, name)
+
+        const tdata = {
+            type: 'object',
+            lvs: (mod.data ?? {}) as any,
         }
-        if (!('on' in this.data[name].data)) {
-            this.data[name].data.on = {
+
+        if (!('on' in tdata.lvs)) {
+            tdata.lvs.on = {
                 type: 'boolean',
-                default_: true,
+                default: true,
             }
         }
+
+        this.data[rawName] = tdata
 
         this.mods.set(name, {
             info: mod.info.replaceAll(/ /g, '_'),
