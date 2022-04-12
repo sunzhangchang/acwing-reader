@@ -7,52 +7,52 @@ declare let unsafeWindow: Window;
 获取有关脚本和 TM 的一些信息。
 * */
 declare let GM_info: {
-  version: string,
-  scriptWillUpdate: boolean,
-  scriptHandler: "Tampermonkey",
-  scriptUpdateURL?: string,
-  scriptSource: string,
-  scriptMetaStr?: string,
-  isIncognito: boolean,
-  downloadMode: "native" | "disabled" | "browser",
-  script: {
-    author?: string,
-    description?: string,
-    excludes: string[],
-    homepage?: string,
-    icon?: string,
-    icon64?: string,
-    includes?: string[],
-    lastModified: number,
-    matches: string[],
-    name: string,
-    namespace?: string,
-    position: number,
-    "run-at": string,
-    resources: string[],
-    unwrap: boolean,
     version: string,
-    options: {
-      awareOfChrome: boolean,
-      run_at: string,
-      noframes?: boolean,
-      compat_arrayLeft: boolean,
-      compat_foreach: boolean,
-      compat_forvarin: boolean,
-      compat_metadata: boolean,
-      compat_uW_gmonkey: boolean,
-      override: {
-        orig_excludes: string[],
-        orig_includes: string[],
-        use_includes: string[],
-        use_excludes: string[],
+    scriptWillUpdate: boolean,
+    scriptHandler: "Tampermonkey",
+    scriptUpdateURL?: string,
+    scriptSource: string,
+    scriptMetaStr?: string,
+    isIncognito: boolean,
+    downloadMode: "native" | "disabled" | "browser",
+    script: {
+        author?: string,
+        description?: string,
+        excludes: string[],
+        homepage?: string,
+        icon?: string,
+        icon64?: string,
+        includes?: string[],
+        lastModified: number,
+        matches: string[],
+        name: string,
+        namespace?: string,
+        position: number,
+        "run-at": string,
+        resources: string[],
+        unwrap: boolean,
+        version: string,
+        options: {
+            awareOfChrome: boolean,
+            run_at: string,
+            noframes?: boolean,
+            compat_arrayLeft: boolean,
+            compat_foreach: boolean,
+            compat_forvarin: boolean,
+            compat_metadata: boolean,
+            compat_uW_gmonkey: boolean,
+            override: {
+                orig_excludes: string[],
+                orig_includes: string[],
+                use_includes: string[],
+                use_excludes: string[],
+                [key: string]: any,
+            },
+            [key: string]: any,
+        },
         [key: string]: any,
-      },
-      [key: string]: any,
     },
     [key: string]: any,
-  },
-  [key: string]: any,
 };
 
 /*
@@ -186,103 +186,103 @@ declare function GM_setClipboard(data: string, info?: string | { type?: string, 
 
 declare namespace GM_Types {
 
-  type ValueChangeListener = (name: string, oldValue: any, newValue: any, remote: boolean) => any;
+    type ValueChangeListener = (name: string, oldValue: any, newValue: any, remote: boolean) => any;
 
-  interface OpenTabOptions {
-    active?: boolean,
-    insert?: boolean,
-    setParent?: boolean
-  }
+    interface OpenTabOptions {
+        active?: boolean,
+        insert?: boolean,
+        setParent?: boolean
+    }
 
-  interface XHRResponse<CONTEXT_TYPE> extends Function {
+    interface XHRResponse<CONTEXT_TYPE> extends Function {
 
-    DONE: 4,
-    HEADERS_RECEIVED: 2,
-    LOADING: 3,
-    OPENED: 1,
-    UNSENT: 0
+        DONE: 4,
+        HEADERS_RECEIVED: 2,
+        LOADING: 3,
+        OPENED: 1,
+        UNSENT: 0
 
-    context: CONTEXT_TYPE,
-    finalUrl: string,
-    readyState: 0 | 1 | 2 | 3 | 4,
-    responseHeaders: string,
-    status: number,
-    statusText: string,
-    response: string | null,
-    responseText: string,
-    responseXML: Document | null
-  }
+        context: CONTEXT_TYPE,
+        finalUrl: string,
+        readyState: 0 | 1 | 2 | 3 | 4,
+        responseHeaders: string,
+        status: number,
+        statusText: string,
+        response: string | null,
+        responseText: string,
+        responseXML: Document | null
+    }
 
-  interface XHRProgress<CONTEXT_TYPE> extends XHRResponse<CONTEXT_TYPE> {
-    done: number,
-    lengthComputable: boolean,
-    loaded: number,
-    position: number,
-    total: number,
-    totalSize: number
-  }
+    interface XHRProgress<CONTEXT_TYPE> extends XHRResponse<CONTEXT_TYPE> {
+        done: number,
+        lengthComputable: boolean,
+        loaded: number,
+        position: number,
+        total: number,
+        totalSize: number
+    }
 
-  type Listener<OBJ> = (this: OBJ, event: OBJ) => any;
+    type Listener<OBJ> = (this: OBJ, event: OBJ) => any;
 
-  interface XHRDetails<CONTEXT_TYPE> {
-    method?: "GET" | "HEAD" | "POST",
-    url?: string,
-    headers?: { readonly [key: string]: string },
-    data?: string,
-    binary?: boolean,
-    timeout?: number,
-    context?: CONTEXT_TYPE,
-    responseType?: "arraybuffer" | "blob" | "json",
-    overrideMimeType?: string,
-    anonymous?: boolean,
-    fetch?: boolean,
-    username?: string,
-    password?: string,
+    interface XHRDetails<CONTEXT_TYPE> {
+        method?: "GET" | "HEAD" | "POST",
+        url?: string,
+        headers?: { readonly [key: string]: string },
+        data?: string,
+        binary?: boolean,
+        timeout?: number,
+        context?: CONTEXT_TYPE,
+        responseType?: "arraybuffer" | "blob" | "json",
+        overrideMimeType?: string,
+        anonymous?: boolean,
+        fetch?: boolean,
+        username?: string,
+        password?: string,
 
-    onload?: Listener<XHRResponse<CONTEXT_TYPE>>,
-    onloadstart?: Listener<XHRResponse<CONTEXT_TYPE>>,
-    onprogress?: Listener<XHRProgress<CONTEXT_TYPE>>,
-    onreadystatechange?: Listener<XHRResponse<CONTEXT_TYPE>>,
-    ontimeout?: Listener<Function>,
-    onabort?: Function,
-    onerror?: Function
-  }
+        onload?: Listener<XHRResponse<CONTEXT_TYPE>>,
+        onloadstart?: Listener<XHRResponse<CONTEXT_TYPE>>,
+        onprogress?: Listener<XHRProgress<CONTEXT_TYPE>>,
+        onreadystatechange?: Listener<XHRResponse<CONTEXT_TYPE>>,
+        ontimeout?: Listener<Function>,
+        onabort?: Function,
+        onerror?: Function
+    }
 
-  interface AbortHandle<RETURN_TYPE> {
-    abort(): RETURN_TYPE
-  }
+    interface AbortHandle<RETURN_TYPE> {
+        abort(): RETURN_TYPE
+    }
 
-  interface DownloadError {
-    error: "not_enabled" | "not_whitelisted" | "not_permitted" | "not_supported" | "not_succeeded",
-    details?: string
-  }
+    interface DownloadError {
+        error: "not_enabled" | "not_whitelisted" | "not_permitted" | "not_supported" | "not_succeeded",
+        details?: string
+    }
 
-  interface DownloadDetails {
-    url: string,
-    name: string,
-    headers?: { readonly [key: string]: string },
-    saveAs?: boolean,
-    timeout?: number,
-    onerror?: Listener<DownloadError>,
-    ontimeout?: Listener<object>,
-    onload?: Listener<object>,
-    onprogress?: Listener<XHRProgress<void>>
-  }
+    interface DownloadDetails {
+        url: string,
+        name: string,
+        headers?: { readonly [key: string]: string },
+        saveAs?: boolean,
+        timeout?: number,
+        onerror?: Listener<DownloadError>,
+        ontimeout?: Listener<object>,
+        onload?: Listener<object>,
+        onprogress?: Listener<XHRProgress<void>>
+    }
 
-  interface NotificationThis extends NotificationDetails {
-    id: string
-  }
+    interface NotificationThis extends NotificationDetails {
+        id: string
+    }
 
-  type NotificationOnClick = (this: NotificationThis) => any;
-  type NotificationOnDone = (this: NotificationThis, clicked: boolean) => any;
+    type NotificationOnClick = (this: NotificationThis) => any;
+    type NotificationOnDone = (this: NotificationThis, clicked: boolean) => any;
 
-  interface NotificationDetails {
-    text?: string,
-    title?: string,
-    image?: string,
-    highlight?: boolean,
-    timeout?: number
-    onclick?: NotificationOnClick,
-    ondone?: NotificationOnDone,
-  }
+    interface NotificationDetails {
+        text?: string,
+        title?: string,
+        image?: string,
+        highlight?: boolean,
+        timeout?: number
+        onclick?: NotificationOnClick,
+        ondone?: NotificationOnDone,
+    }
 }
