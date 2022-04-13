@@ -2,7 +2,7 @@
 import parser from 'minimist'
 import log from 'fancy-log'
 import PluginError from 'plugin-error'
-import { existsSync, writeFileSync, readdirSync, mkdirSync, cpSync, rmSync, readFileSync } from 'fs'
+import { existsSync, writeFileSync, readdirSync, mkdirSync, cpSync, rmSync, readFileSync, rmdirSync } from 'fs'
 import { join, parse } from 'path'
 import _ from 'lodash'
 import { buildSync } from 'esbuild'
@@ -31,6 +31,13 @@ export function build(cb) {
             .join('\n')
     )
 
+    if (existsSync('_tmp')) {
+        rmSync('_tmp', {
+            recursive: true,
+            force: true,
+        })
+    }
+
     /**
      * @type { Record<string, string> }
      */
@@ -56,8 +63,8 @@ export function build(cb) {
                 cpSync(d, dest)
                 writeFileSync(dest,
                     readFileSync(d, 'utf8')
-                        .replace(/import.+from ["']lodash["'];?/g, '')
-                        .replace(/import.+from ["']@fluentui\/web-components["'];?/g, '')
+                        .replace(/import.+from ["']lodash["'](;?)/g, '')
+                        .replace(/import.+from ["']@fluentui\/web-components["'](;?)/g, '')
                 )
             }
             if (_.includes(['.css', 'html'], ext)) {
@@ -98,6 +105,7 @@ export function build(cb) {
         )
     )
 
+    writeFileSync('_tmp/tsconfig.json', readFileSync('./tsconfig.json', 'utf-8').replace(/src/g, '_tmp/src'))
     let t = join(tmpd, './src/main.ts')
     let out = join(argv.d ?? 'build', argv.o ?? 'acwing-reader.user.js')
 
@@ -111,6 +119,7 @@ export function build(cb) {
             js: readFileSync('./src/res/tm-headers.ts', 'utf8')
                 .replace('CUR_VER', process.env.npm_package_version) + '\n;',
         },
+        tsconfig: '_tmp/tsconfig.json',
         loader: {
             '.css': 'text'
         },
@@ -119,10 +128,10 @@ export function build(cb) {
         charset: 'utf8',
         minify
     })
-    rmSync(tmpd, {
-        recursive: true,
-        force: true,
-    })
+    // rmSync(tmpd, {
+    //     recursive: true,
+    //     force: true,
+    // })
     log(`Build ${parse(out).base} successfully.`)
     cb()
 }
