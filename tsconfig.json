@@ -8,7 +8,6 @@
         "alwaysStrict": true,
         "declaration": true,
         "moduleResolution": "node",
-        "baseUrl": "./src",
         "typeRoots": [
             "node_modules/@types",
             "src/typings"
@@ -24,7 +23,7 @@
         "jspm_packages",
         "tmp",
         "temp",
-        "_tmp"
+        // "_tmp"
     ],
     "include": [
         "src/**/*"
