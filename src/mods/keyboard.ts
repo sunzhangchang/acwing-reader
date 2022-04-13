@@ -1,5 +1,5 @@
-import { core } from "core"
 import _ from "lodash"
+import { core } from "../core"
 import { keys, logger } from "../utils"
 
 function isCtl(c: string, e: JQuery.KeyDownEvent): boolean {

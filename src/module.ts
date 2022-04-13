@@ -1,5 +1,5 @@
-import { categoryMan } from 'category'
 import _ from 'lodash'
+import { categoryMan } from './category'
 
 export class ModuleManager {
     mods = new Map<string, Mod>()

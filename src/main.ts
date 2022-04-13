@@ -1,6 +1,6 @@
-import { core } from 'core'
 import { logger } from './utils'
-import 'allMods'
+import './allMods'
+import { core } from './core'
 
 core.preload()
 
