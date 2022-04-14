@@ -130,7 +130,8 @@ export async function build_(cb) {
         },
         tsconfig: '_tmp/tsconfig.json',
         loader: {
-            '.css': 'text'
+            '.css': 'text',
+            '.png': 'dataurl',
         },
         target: 'es6',
         bundle: true,
