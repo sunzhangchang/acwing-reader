@@ -1,19 +1,22 @@
 // @ts-check
 import parser from 'minimist'
-import log from 'fancy-log'
+import log, { error } from 'fancy-log'
 import PluginError from 'plugin-error'
-import { existsSync, writeFileSync, readdirSync, mkdirSync, cpSync, rmSync, readFileSync, rmdirSync } from 'fs'
+import { existsSync, writeFileSync, readdirSync, mkdirSync, cpSync, rmSync, readFileSync } from 'fs'
 import { join, parse } from 'path'
 import _ from 'lodash'
-import { buildSync } from 'esbuild'
+import { build } from 'esbuild'
 
 /**
  * @param { any } cb
  */
-export function build(cb) {
+export async function build_(cb) {
     log('args:', process.argv.slice(3))
 
-    const tmpd = '_tmp', argv = parser(process.argv.slice(3)), minify = argv.m ?? (!argv.b)
+    const tmpd = '_tmp'
+    const argv = parser(process.argv.slice(3))
+    const minify = argv.m ?? (!argv.b)
+    const watch = !!argv.w
 
     log('minify?', minify);
 
@@ -90,11 +93,17 @@ export function build(cb) {
         }
     }
 
-    buildSync({
+    const res = await build({
         entryPoints: tmpCss,
         outdir: tmpd,
         minify,
+        watch,
     })
+
+    if (res.errors.length > 0) {
+        error(`Build unsuccessfully.`)
+        throw new PluginError('esbuild', new Error())
+    }
 
     trks.forEach(
         t => writeFileSync(
@@ -112,7 +121,7 @@ export function build(cb) {
     log('out file ', out)
     log(`Building `, t)
 
-    buildSync({
+    const ress = await build({
         entryPoints: [t],
         outfile: out,
         banner: {
@@ -126,8 +135,15 @@ export function build(cb) {
         target: 'es6',
         bundle: true,
         charset: 'utf8',
-        minify
+        minify,
+        watch,
     })
+
+    if (ress.errors.length > 0) {
+        error(`Build ${parse(out).base} unsuccessfully.`)
+        throw new PluginError('esbuild', new Error())
+    }
+
     // rmSync(tmpd, {
     //     recursive: true,
     //     force: true,

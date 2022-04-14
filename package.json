@@ -5,10 +5,10 @@
   "type": "module",
   "main": "./src/main.js",
   "scripts": {
-    "build": "gulp build -d dist",
+    "build": "gulp build_ -d dist",
     "lint": "eslint src/**/*.ts",
     "lint-fix": "eslint src/**/*.ts --fix",
-    "test": "gulp build -d dist -b"
+    "test": "gulp build_ -d dist -b"
   },
   "repository": {
     "type": "git",
