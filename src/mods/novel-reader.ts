@@ -6,15 +6,16 @@ import { core } from '../core';
 
 const run = (): boolean => {
     const taskBtn = $("#acwing_body > div.panel.panel-default.fs-gui-taskbar > div > div.fs-gui-taskbar-right > div.fs-gui-taskbar-task-list.ui-sortable")
-    const novelBar = $(`<a id="novelBar" type="button" class="btn btn-default pull-right fs-gui-taskbar-task-list-item ui-draggable">${'' ?? '点击打开小说'}</a>`)
+    const novelBar = $(`<button id="novelBar" type="button" class="btn btn-default pull-right fs-gui-taskbar-task-list-item ui-draggable">${'' ?? '点击打开小说'}</button>`)
     novelBar.css({
-        'background-color': '#8a8a8a',
+        // 'background-color': '#8a8a8a',
         'border': 'none',
         'box-shadow': 'none',
         'width': 'auto',
         'min-width': '200px',
         "position": "relative",
     })
+    novelBar.hide()
 
     const uploadBtn = $(`<input id="uploadNovel" type="file" accept="text/plain" />`)
 
